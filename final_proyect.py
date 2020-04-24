@@ -53,11 +53,52 @@ def create_table_order(conex):
     conex.execute(sql)
     print("- tabla ORDER creada correctamente -")
 
+# metodo del menu principal
+def principal_menu(conex):
+    print("\n************************")
+    print("MENU PRINCIPAL")
+    print('1. Iniciar sesión')
+    print('2. Registrarse')
+    print('3. Salir del programa')
+    print("************************\n")
+    opcion = int(input('Ingrese la opcion de lo que desea realizar: '))
+    if validate_user_selection(opcion):
+        menu_princ_selection(opcion, conex)
+    else:
+        print("El valor que ingresaste no es válido")
+        principal_menu(conex)
+    
+# funcion para saber si la opcion es valida
+def validate_user_selection(opcion):
+    return isinstance(opcion, int) and opcion >0 and opcion < 4
+
+# funcion para llevar a cada opcion del menu principal
+def menu_princ_selection(opcion, conex):
+    if opcion == 1:
+        log_in(conex)
+    elif opcion == 2:
+        sign_in(conex)
+    else:
+        get_out(conex)
+
+# funcion para iniciar sesion
+def log_in(conex):
+    pass
+
+# funcion para registrarse
+def sign_in(conex):
+    pass
+
+# funcion para salir
+def get_out(conex):
+    pass
+
 def main():
     conex = create_or_get_database()
     create_table_user(conex)
     create_table_dish(conex)
     create_table_order(conex)
+    principal_menu(conex)
 
 
 main()
