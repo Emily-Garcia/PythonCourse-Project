@@ -83,7 +83,50 @@ def menu_princ_selection(opcion, conex):
 
 # funcion para iniciar sesion
 def log_in(conex):
-    pass
+    email = input('Ingresa tu email: ')
+    password = input('Ingresa una contraseña: ')
+
+    try:
+        sql = '''
+            UPDATE user 
+            SET
+                is_logged = 1
+            WHERE
+                email = ?
+            AND
+                password = ?
+        '''
+        values = (email, password)
+        cursor = conex.execute(sql, values)
+        conex.commit()
+
+        if cursor.rowcount < 1:
+            #error
+            print('- No se pudo iniciar sesion :(')
+            user_while(conex)
+        else:
+            #success
+            print('>>>Usuario ha iniciado sesion exitosamente!\n')
+            menu_login(conex)
+    except Exception as e:
+        print('- Algo salio mal durante el inicio de sesion :(')
+        print(e)
+        print()
+
+# funcion de menu ya que iniciaste sesion
+def menu_login(conex):
+    print('....................')
+    print('Menu')
+    print('1. Ver platillos')
+    print('2. Crear platillo')
+    print('3. Realizar pedido')
+    print('4. Ver pedidos realizados')
+    print('5. Ver perfil')
+    print('6. Editar perfil')
+    print('7. Cerrar sesión')
+    print('....................')
+    print()
+    userlgin = int(input('Ingrese la opcion de lo que desea realizar: '))
 
 # funcion para registrarse
 def sign_in(conex):
