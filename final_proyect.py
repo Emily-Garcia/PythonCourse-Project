@@ -170,9 +170,31 @@ def make_order(conex):
 def see_orders(conex):
     pass
 
-#funcion para ver elperfil del usuario
+#funcion para ver el perfil del usuario
 def view_profile(conex):
-    pass
+    sql = '''
+        SELECT 
+            first_name, last_name, email, phone, password, timestamp
+        FROM
+            user
+        WHERE
+            is_logged = 1
+    '''
+    cursor = conex.execute(sql)
+
+    for row in cursor:
+        print("--------")
+        print(f'Nombre: {row[0]}')
+        print(f'Apellido: {row[1]}')
+        print(f'Email: {row[2]}')
+        print(f'Num. de telefono: {row[3]}')
+        print(f'Contraseña: {row[4]}')
+        print(f'Ultima actualizacion: {row[5]}')
+        print("---------")
+
+    user_while(conex)
+
+
 
 #funcion para actualizar el perfil del usuario
 def update_profile(conex):
