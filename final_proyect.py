@@ -126,7 +126,61 @@ def menu_login(conex):
     print('7. Cerrar sesión')
     print('....................')
     print()
-    userlgin = int(input('Ingrese la opcion de lo que desea realizar: '))
+    opcion = int(input('Ingrese la opcion de lo que desea realizar: '))
+    if validate_user_menu(opcion):
+        menu_princ_selection(opcion, conex)
+    else:
+        print("El valor que ingresaste no es válido")
+        menu_login(conex)
+
+# funcion para saber si la opcion es valida en el menu de inicio de sesion
+def validate_user_menu(opcion):
+    return isinstance(opcion, int) and opcion >0 and opcion < 8
+
+# funcion para llevar a cada opcion del menu de inicio de sesion
+def menu_lgin_selection(opcion, conex):
+    if opcion == 1:
+        see_dishes(conex)
+    elif opcion == 2:
+        create_dish(conex)
+    elif opcion == 3:
+        make_order(conex)
+    elif opcion == 4:
+        see_orders(conex)
+    elif opcion == 5:
+        view_profile(conex)
+    elif opcion == 6:
+        update_profile(conex)
+    else:
+        sign_off(conex)
+
+#funcion para ver platillos
+def see_dishes(conex):
+    pass
+
+#funcion pra crear platillo
+def create_dish(conex):
+    pass
+
+#funcion para realizar el pedido
+def make_order(conex):
+    pass
+
+#funcion para ver los pedidos realizados
+def see_orders(conex):
+    pass
+
+#funcion para ver elperfil del usuario
+def view_profile(conex):
+    pass
+
+#funcion para actualizar el perfil del usuario
+def update_profile(conex):
+    pass
+
+#funcion para cerrar sesion
+def sign_off(conex):
+    pass
 
 # funcion para registrarse
 def sign_in(conex):
