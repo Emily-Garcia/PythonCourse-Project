@@ -15,7 +15,7 @@ def create_table_user(conex):
             email TEXT NOT NULL,
             phone INT NOT NULL,
             password TEXT NOT NULL,
-            is_logged INT NOT NULL,
+            is_logged INT DEFAULT 0,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     '''
@@ -87,11 +87,39 @@ def log_in(conex):
 
 # funcion para registrarse
 def sign_in(conex):
-    pass
+    first_name = input('Ingresa tu nombre: ')
+    last_name = input('Ingresa tu apellido: ')
+    email = input('Ingresa tu email: ')
+    phone = input('Ingresa numero de telefono: ')
+    password = input('Ingresa una contraseña: ')
+    print()
+
+    sql = '''
+        INSERT INTO
+        user (first_name, last_name, email, phone, password)
+        VALUES (?, ?, ?, ?, ?)
+    '''
+    values = (first_name, last_name, email, phone, password)
+    
+    conex.execute(sql, values)
+    conex.commit()
+
+    print('>>>>>Usuario creado correctamente!')
+    user_while(conex)
 
 # funcion para salir
 def get_out(conex):
     pass
+
+# funcion para saber si quiere seguir ocupando el programa
+def user_while(conex):
+    leave = input('¿Desea seguir utilizando la app? S/N: ')
+    if leave != 'S' and leave != 'N':
+            print('La opcion que ingresaste no es valida')
+            leave = input('¿Deseas salir de la app? (S/N): ')
+    else:
+        principal_menu(conex)
+
 
 def main():
     conex = create_or_get_database()
