@@ -128,7 +128,7 @@ def menu_login(conex):
     print()
     opcion = int(input('Ingrese la opcion de lo que desea realizar: '))
     if validate_user_menu(opcion):
-        menu_princ_selection(opcion, conex)
+        menu_lgin_selection(opcion, conex)
     else:
         print("El valor que ingresaste no es válido")
         menu_login(conex)
@@ -180,7 +180,29 @@ def update_profile(conex):
 
 #funcion para cerrar sesion
 def sign_off(conex):
-    pass
+    try:
+        sql = '''
+            UPDATE user 
+            SET
+                is_logged = 0
+            WHERE
+                is_logged = 1
+        '''
+        cursor = conex.execute(sql)
+        conex.commit()
+
+        if cursor.rowcount < 1:
+            #error
+            print('- No se pudo cerrar sesion :(')
+            user_while(conex)
+        else:
+            #success
+            print('>>>Usuario ha cerrado sesion exitosamente!\n')
+            principal_menu(conex)
+    except Exception as e:
+        print('- Algo salio mal durante el cierre de sesion :(')
+        print(e)
+        print()
 
 # funcion para registrarse
 def sign_in(conex):
